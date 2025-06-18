@@ -29,32 +29,34 @@ CREATE TABLE sales (
  select * from walmart.sales;
 ```sql
  # 1)Total Sales Analysis
-```sql
+```
  select sum(total) as total_Sales 
  from sales;
-```sql
+```
 
 
  # 2)Average Sales Per Transaction
 ```sql
  select avg(total) as avg_sales 
  from sales	;
- ```sql
+ ```
  # 3) find Unique Products
 ```sql
  select distinct(product_line) As unique_products
  from Sales;
- ```sql
+ ```
  # 4) Total Products Sold
 ```sql
  SELECT COUNT(Invoice_ID) AS Total_Products_Sold
 FROM sales;
-```sql
+```
 # 5)  find Unique citys 
+```sql
 select distinct(city) as Unique_city
 from sales;
-
+```
  # Time_of _day 
+```sql
  select time,
  (case 
        when time Between  "00:00:00" And "12:00:00" Then "Morning"
@@ -62,7 +64,8 @@ from sales;
        Else "Evening"
  End) as time_of_day
  from sales;
- 
+ ```
+```sql
  ALTER TABLE sales ADD column time_of_day varchar(20);
  
  update sales
@@ -73,54 +76,66 @@ from sales;
 			Else "Evening"
 	     END
 	);
-    
+    ```
   ## Dayname 
-     
+```sql     
 select date,
 dayname(date) as day_name
 from sales;
-
+```
+```sql
 ALTER TABLE Sales Add column day_name Varchar(30);
 update sales
 set day_name = dayname(date);
-
+```
 ## Month name 
+```sql
 select date,
 monthname(date) as month_name 
 from sales;
 ALTER table Sales  add column  month_name  Varchar(30);
 Update sales
 set month_name = MONTHNAME(date);
-
+```
+```sql
 select distinct City From sales;
-
+```
+```sql
 select distinct branch, city From sales;
-
+```
 ### What is Common Payment Method ?
+```sql
 select payment, count(payment) as Common_Payment_Method
 from Sales
 group by payment
 order by Common_payment_Method Desc
 limit	5;
-
+```
 ### What is Most selling Product Line  ?
+```sql
 select product_line, count(product_line) as most_selling_product
 from sales
 group by product_line
 order by most_selling_product desc
 limit 5;
+```
 ###  what is the total revenue by month 
+```sql
 select Month_name, sum(total) as total_revenue
 from sales
 group by month_name
 order by total_revenue desc;
+```
 ### which month recorded the highest cost of goods sold (coogs)
+```sql
 Select Month_name, sum(cogs) as total_cogs
 from sales
 group by Month_name
 order by total_cogs desc;
-
+```
 ### Which product line generated the highest revenue
+
+```sql
 select product_line , sum(total) as total_product_revenue
 from sales
 group by product_line
@@ -135,23 +150,26 @@ SET product_category =
         WHEN sales.total >= avg_table.avg_total THEN 'good'
         ELSE 'bad'
     END;
-    
+   ```
 ### Which branch sold more products than average product sold?
+```sql
 select branch, sum(quantity) as quantity 
 from sales
 group by branch
 having sum(quantity) > avg(quantity)
 order by quantity desc 
 limit 5;
-
+```
 ### What is the most common product line by gender?
+```sql
 select gender,product_line, count(gender) as total_count 
 from sales
 group by  gender ,product_line
 order by total_count desc 
 ;
+```
 
-
+```sql
 
 Select day_name ,time_of_day, count(invoice_id) as total_sales
 from sales
@@ -165,3 +183,4 @@ SELECT
     AVG(rating) AS ratings
 FROM sales
 GROUP BY branch;
+```

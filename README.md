@@ -1,5 +1,6 @@
 # Wall-Mart-_Sales-Analysis_Sql
 
+```sql
 DROP TABLE IF EXISTS sales;
 
 CREATE TABLE sales (
@@ -21,25 +22,34 @@ CREATE TABLE sales (
   gross_income DECIMAL(12,4),
   rating DECIMAL(3,1)
 );
+```
 
- ## Data Import let check Once 
+ ## Data Import let check Once
+```sql 
  select * from walmart.sales;
+```sql
  # 1)Total Sales Analysis
+```sql
  select sum(total) as total_Sales 
  from sales;
+```sql
+
 
  # 2)Average Sales Per Transaction
+```sql
  select avg(total) as avg_sales 
  from sales	;
- 
+ ```sql
  # 3) find Unique Products
+```sql
  select distinct(product_line) As unique_products
  from Sales;
- 
+ ```sql
  # 4) Total Products Sold
+```sql
  SELECT COUNT(Invoice_ID) AS Total_Products_Sold
 FROM sales;
-
+```sql
 # 5)  find Unique citys 
 select distinct(city) as Unique_city
 from sales;
